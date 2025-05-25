@@ -112,7 +112,7 @@ justify-between md:px-36 px-8 md:pt-30 pt-20 text-left!'>
 {/* right column  */}
       <div className='max-w-course-card z-10 shadow-custom-card rounded-t md:rounded-none overflow-hidden bg-white min-w-[300px] sm:min-w[420px]'>
         {
-              playerData ? <YouTube videoId={playerData.videoId} opts={{playerVars:{autoplay:1}}} /> : <img src={courseData.courseThumbnail} alt="" />
+              playerData ? <YouTube videoId={playerData.videoId} opts={{playerVars:{autoplay:1}}} iframeClassName='w-full aspect-video' /> : <img src={courseData.courseThumbnail} alt="" />
           
         }
         
