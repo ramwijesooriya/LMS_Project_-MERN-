@@ -56,6 +56,25 @@ const AddCourse = () => {
   }
 };
 
+const handleLecture = (action, chapterId, lectureIndex) => {
+    if (action === 'add') {
+        setCurrentChapterId(chapterId);  // Fixed typo: characterId → chapterId
+        setShowPopup(true);
+    } else if (action === 'remove') {
+        setChapters(prevChapters => 
+            prevChapters.map(chapter => {
+                if (chapter.chapterId === chapterId) {
+                    // Create a new array to avoid direct state mutation
+                    const updatedContent = [...chapter.chapterContent];
+                    updatedContent.splice(lectureIndex, 1);
+                    return { ...chapter, chapterContent: updatedContent };
+                }
+                return chapter;
+            })
+        );
+    }
+};
+
 
   return (
     <div className='h-screen overflow-scroll flex flex-col items-start justify-between md:p-8 md:pb-0 p-4 pt-8 pb-0'>
@@ -134,6 +153,7 @@ const AddCourse = () => {
               <div className="flex justify-between items-center p-4 border-b">
                 <div className='flex items-center'>
                   <img
+                  onClick={()=>handleChapter('toggle',chapter.chapterId)}
                     src={assets.dropdown_icon}
                     width={14}
                     alt=""
@@ -144,7 +164,7 @@ const AddCourse = () => {
                 <span className='text-gray-500'>
                   {chapter.chapterContent.length} Lectures
                 </span>
-                <img src={assets.cross_icon} className='cursor-pointer' alt="" />
+                <img onClick={()=>handleChapter('remove',chapter.chapterId)} src={assets.cross_icon} className='cursor-pointer' alt="" />
               </div>
               {!chapter.collapsed && (
                 <div className='p-4'>
@@ -155,10 +175,10 @@ const AddCourse = () => {
                         <a href={lecture.lectureUrl} target='_blank' rel="noreferrer" className='text-blue-500'> Link</a> - 
                         {lecture.isPreviewFree ? 'Free Preview' : 'Paid'}
                       </span>
-                      <img src={assets.cross_icon} className='cursor-pointer' alt="" />
+                      <img  src={assets.cross_icon} className='cursor-pointer' alt="" />
                     </div>
                   ))}
-                  <div  className='inline-flex bg-gray-100 p-2 rounded cursor-pointer mt-2'>
+                  <div  className='inline-flex bg-gray-100 p-2 rounded cursor-pointer mt-2'onClick={()=>handleLecture('add',chapter.chapterId)} >
                     +Add Lecture
                   </div>
                 </div>
