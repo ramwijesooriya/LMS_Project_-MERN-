@@ -19,7 +19,7 @@ app.get('/', (req, res) => res.send('API Working'));
 app.post('/cleark', express.json(),clerkWebhooks)
 
 // Port
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 500;
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
